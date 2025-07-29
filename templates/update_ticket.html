@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}Ticket Düzenle - Smart Ticket{% endblock %}
+
+{% block content %}
+<h2>Ticket Düzenle</h2>
+<form method="POST" action="{{ url_for('update_ticket', ticket_id=ticket.id) }}">
+    <div class="mb-3">
+        <label for="title" class="form-label">Başlık</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ ticket.title }}" required />
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Açıklama</label>
+        <textarea class="form-control" id="description" name="description" rows="4" required>{{ ticket.description }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Kategori</label>
+        <select class="form-select" id="category" name="category" required>
+            {% for c in categories %}
+            <option value="{{ c }}" {% if ticket.category == c %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="budget" class="form-label">Bütçe</label>
+        <input type="text" class="form-control" id="budget" name="budget" value="{{ ticket.budget }}" />
+    </div>
+    <div class="mb-3">
+        <label for="priority" class="form-label">Öncelik</label>
+        <select class="form-select" id="priority" name="priority" required>
+            {% for p in priorities %}
+            <option value="{{ p }}" {% if ticket.priority == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="status" class="form-label">Durum</label>
+        <select class="form-select" id="status" name="status" required>
+            {% for s in statuses %}
+            <option value="{{ s }}" {% if ticket.status == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
+{% endblock %}
